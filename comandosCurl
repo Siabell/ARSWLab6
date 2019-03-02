@@ -1,0 +1,1 @@
+curl -i -X POST -H 'Content-Type: application/json' -d '{"movie":{"name":"hola","genre":"terror"},"date": "2018-12-18 15:30"}' http://localhost:8080/cinemas/cineMania 

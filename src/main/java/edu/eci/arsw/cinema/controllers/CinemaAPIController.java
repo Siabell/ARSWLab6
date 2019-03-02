@@ -17,10 +17,12 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import edu.eci.arsw.cinema.model.CinemaFunction;
 import edu.eci.arsw.cinema.services.CinemaServices;
 /**
  *
@@ -73,7 +75,7 @@ public class CinemaAPIController {
 	    } catch (Exception ex) {
 	        Logger.getLogger(CinemaAPIController.class.getName()).log(Level.SEVERE, null, ex);
 	        return new ResponseEntity<>("Error 404, Cinema y fecha no encontrado",HttpStatus.NOT_FOUND);
-	    }      
+	    }      	 
 	}
 
 	@RequestMapping("/{name}/{date}/{moviename}")
@@ -89,6 +91,18 @@ public class CinemaAPIController {
 	        Logger.getLogger(CinemaAPIController.class.getName()).log(Level.SEVERE, null, ex);
 	        return new ResponseEntity<>("Error 404, Cinema y fecha no encontrado",HttpStatus.NOT_FOUND);
 	    }      
+	}
+	
+	@RequestMapping(method = RequestMethod.POST,value = "/{cinema}")	
+	public ResponseEntity<?> manejadorPostRecursoXX(@RequestBody CinemaFunction function, @PathVariable String cinema){
+	    try {
+	        cinemaService.addNewFunction(cinema,function);
+	        return new ResponseEntity<>(HttpStatus.CREATED);
+	    } catch (Exception ex) {
+	        Logger.getLogger(CinemaAPIController.class.getName()).log(Level.SEVERE, null, ex);
+	        return new ResponseEntity<>("Error bla bla bla",HttpStatus.FORBIDDEN);            
+	    }        
+
 	}
 	
 	

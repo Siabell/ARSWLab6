@@ -110,6 +110,13 @@ public class CinemaServices {
 		return cps.filterMovies(cinema, fecha, filter);
     	
     }
+    
+    public void addNewFunction(String cinema, CinemaFunction function) throws CinemaException {
+    	Cinema cine = getCinemaByName(cinema);
+    	
+    	cine.addNewFunction(function);
+    	
+    }
 
 
 }
