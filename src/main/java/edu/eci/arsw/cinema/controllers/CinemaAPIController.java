@@ -60,8 +60,7 @@ public class CinemaAPIController {
 	        return new ResponseEntity<>("Error Cinemas no encontrados",HttpStatus.NOT_FOUND);
 	    }  
 	}
-
-
+	
 	@RequestMapping("/{name}/{date}")
     public HttpEntity getAddressNameAndDate(@PathVariable String name, @PathVariable String date) {
 		try {
@@ -70,9 +69,28 @@ public class CinemaAPIController {
 	        Object data = cinemaService.getFunctionsbyCinemaAndDate(name, date);
 	        if(cinemaService.getFunctionsbyCinemaAndDate(name, date).isEmpty())return new ResponseEntity<>("No existen funciones para esa fecha",HttpStatus.ACCEPTED);
 	        else return new ResponseEntity<>(data,HttpStatus.ACCEPTED);
+	        
 	    } catch (Exception ex) {
 	        Logger.getLogger(CinemaAPIController.class.getName()).log(Level.SEVERE, null, ex);
 	        return new ResponseEntity<>("Error 404, Cinema y fecha no encontrado",HttpStatus.NOT_FOUND);
 	    }      
 	}
+
+	@RequestMapping("/{name}/{date}/{moviename}")
+    public HttpEntity getAddressCinemaDateAndName(@PathVariable String cinema, @PathVariable String date,@PathVariable String moviename) {
+		try {
+	        //obtener datos que se enviarán a través del API
+	    	
+	        Object data = cinemaService.getFunctionsbyCinemaDateAndName(cinema, date, moviename);
+	        if(cinemaService.getFunctionsbyCinemaAndDate(cinema, date).isEmpty())return new ResponseEntity<>("No existen funciones para esa fecha",HttpStatus.ACCEPTED);
+	        else return new ResponseEntity<>(data,HttpStatus.ACCEPTED);
+	        
+	    } catch (Exception ex) {
+	        Logger.getLogger(CinemaAPIController.class.getName()).log(Level.SEVERE, null, ex);
+	        return new ResponseEntity<>("Error 404, Cinema y fecha no encontrado",HttpStatus.NOT_FOUND);
+	    }      
+	}
+	
+	
+	
 }

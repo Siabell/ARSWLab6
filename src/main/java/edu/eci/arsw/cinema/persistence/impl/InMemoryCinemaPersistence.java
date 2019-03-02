@@ -103,6 +103,24 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
         }
         
     }
+    
+    @Override
+    public List<CinemaFunction> getFunctionsbyCinemaDateName(String cinema, String date,String name) throws CinemaException {
+        try {
+            Cinema cine=cinemas.get(cinema);
+            List<CinemaFunction> funciones = new ArrayList<CinemaFunction>();
+            for (CinemaFunction funcion : cine.getFunctions()) {
+                if(funcion.getDate().equals(date) && funcion.getMovie().getName().equals(name)){
+                    funciones.add(funcion);
+                }
+            }
+            
+            return funciones; 
+        } catch (Exception e) {
+        	throw new CinemaException("Cinema not found"); 
+        }
+        
+    }
 
     @Override
     public void saveCinema(Cinema c) throws CinemaPersistenceException {

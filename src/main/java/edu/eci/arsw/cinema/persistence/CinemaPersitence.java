@@ -74,5 +74,7 @@ public interface CinemaPersitence {
      * @throws CinemaException 
      */
     public List<Movie> filterMovies(String cinema, String fecha, String filter) throws CinemaException;
+
+	List<CinemaFunction> getFunctionsbyCinemaDateName(String cinema, String date, String name) throws CinemaException;
     
 }

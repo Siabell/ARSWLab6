@@ -92,6 +92,19 @@ public class CinemaServices {
     	return funciones;
     }
     
+    public List<CinemaFunction> getFunctionsbyCinemaDateAndName(String cinema, String date, String name) throws CinemaException {
+    	List<CinemaFunction> funciones = new ArrayList<CinemaFunction>();
+    	try {
+			funciones = cps.getFunctionsbyCinemaDateName(cinema, date, name);
+		} catch (CinemaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new CinemaException("no existe las funciones en este cinema con esta fecha");
+		}
+    	System.out.println(funciones.size());
+    	return funciones;
+    }
+    
     public List<Movie> filterMovies(String cinema, String fecha, String filter) throws CinemaException{
 
 		return cps.filterMovies(cinema, fecha, filter);
