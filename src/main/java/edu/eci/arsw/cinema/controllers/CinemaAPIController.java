@@ -6,6 +6,7 @@
 package edu.eci.arsw.cinema.controllers;
 
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -78,13 +79,14 @@ public class CinemaAPIController {
 	    }      	 
 	}
 
-	@RequestMapping("/{name}/{date}/{moviename}")
+	@RequestMapping("/{cinema}/{date}/{moviename}")
     public HttpEntity getAddressCinemaDateAndName(@PathVariable String cinema, @PathVariable String date,@PathVariable String moviename) {
 		try {
 	        //obtener datos que se enviarán a través del API
 	    	
 	        Object data = cinemaService.getFunctionsbyCinemaDateAndName(cinema, date, moviename);
-	        if(cinemaService.getFunctionsbyCinemaAndDate(cinema, date).isEmpty())return new ResponseEntity<>("No existen funciones para esa fecha",HttpStatus.ACCEPTED);
+	        
+	        if(cinemaService.getFunctionsbyCinemaDateAndName(cinema, date, moviename) == null)return new ResponseEntity<>("No existen funciones para esta pelicula en esta fecha",HttpStatus.NOT_FOUND);
 	        else return new ResponseEntity<>(data,HttpStatus.ACCEPTED);
 	        
 	    } catch (Exception ex) {
@@ -93,6 +95,8 @@ public class CinemaAPIController {
 	    }      
 	}
 	
+	
+	
 	@RequestMapping(method = RequestMethod.POST,value = "/{cinema}")	
 	public ResponseEntity<?> manejadorPostRecursoXX(@RequestBody CinemaFunction function, @PathVariable String cinema){
 	    try {
@@ -100,9 +104,28 @@ public class CinemaAPIController {
 	        return new ResponseEntity<>(HttpStatus.CREATED);
 	    } catch (Exception ex) {
 	        Logger.getLogger(CinemaAPIController.class.getName()).log(Level.SEVERE, null, ex);
-	        return new ResponseEntity<>("Error bla bla bla",HttpStatus.FORBIDDEN);            
+	        return new ResponseEntity<>("No fue posible crear el recurso",HttpStatus.FORBIDDEN);            
 	    }        
 
+	}
+	
+	@RequestMapping(method = RequestMethod.PUT,value = "/{name}")	
+	public ResponseEntity<?> manejadorPut(@RequestBody CinemaFunction function, @PathVariable String name){
+	    try {
+	    	System.out.println("llego aqui1");
+	        CinemaFunction cf = cinemaService.getFunctionsbyCinemaDateAndName(name, function.getDate(), function.getMovie().getName());
+	        System.out.println("llego aqui");
+	        if(cf == null) {
+	        	cinemaService.addNewFunction(name,function);
+	        }else {
+	        	cf.updateAtributes(function.getMovie(),function.getDate(),function.getSeats());
+	        }
+	        
+	        return new ResponseEntity<>(HttpStatus.CREATED);
+	    } catch (Exception ex) {
+	        Logger.getLogger(CinemaAPIController.class.getName()).log(Level.SEVERE, null, ex);
+	        return new ResponseEntity<>("No es posible actualizar ni crear el recurso",HttpStatus.FORBIDDEN);            
+	    }        
 	}
 	
 	

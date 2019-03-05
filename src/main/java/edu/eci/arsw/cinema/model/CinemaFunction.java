@@ -73,6 +73,14 @@ public class CinemaFunction {
     	
     	return count;
     }
+
+	public void updateAtributes(Movie movie, String date, List<List<Boolean>> seats) {
+		
+		this.movie = movie;
+		this.date = date;
+		this.seats = seats;
+		
+	}
     
     
     

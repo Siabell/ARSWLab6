@@ -84,24 +84,21 @@ public class CinemaServices {
     	try {
 			funciones = cps.getFunctionsbyCinemaAndDate(cinema, date);
 		} catch (CinemaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
 			throw new CinemaException("no existe las funciones en este cinema con esta fecha");
 		}
-    	System.out.println(funciones.size());
+    	//System.out.println(funciones.size());
     	return funciones;
     }
     
-    public List<CinemaFunction> getFunctionsbyCinemaDateAndName(String cinema, String date, String name) throws CinemaException {
-    	List<CinemaFunction> funciones = new ArrayList<CinemaFunction>();
+    public CinemaFunction getFunctionsbyCinemaDateAndName(String cinema, String date, String name) throws CinemaException {
+    	CinemaFunction funciones = null;
     	try {
 			funciones = cps.getFunctionsbyCinemaDateName(cinema, date, name);
-		} catch (CinemaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (Exception e) {
+			//e.printStackTrace();
 			throw new CinemaException("no existe las funciones en este cinema con esta fecha");
 		}
-    	System.out.println(funciones.size());
     	return funciones;
     }
     
@@ -113,10 +110,14 @@ public class CinemaServices {
     
     public void addNewFunction(String cinema, CinemaFunction function) throws CinemaException {
     	Cinema cine = getCinemaByName(cinema);
-    	
     	cine.addNewFunction(function);
     	
     }
+
+	public boolean getFunctionByCinemaAndName(String cinema, String name) {
+
+		return false;
+	}
 
 
 }

@@ -105,20 +105,23 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
     }
     
     @Override
-    public List<CinemaFunction> getFunctionsbyCinemaDateName(String cinema, String date,String name) throws CinemaException {
-        try {
-            Cinema cine=cinemas.get(cinema);
-            List<CinemaFunction> funciones = new ArrayList<CinemaFunction>();
-            for (CinemaFunction funcion : cine.getFunctions()) {
-                if(funcion.getDate().equals(date) && funcion.getMovie().getName().equals(name)){
-                    funciones.add(funcion);
-                }
-            }
-            
-            return funciones; 
-        } catch (Exception e) {
-        	throw new CinemaException("Cinema not found"); 
-        }
+    public CinemaFunction getFunctionsbyCinemaDateName(String cinema, String date,String name) throws CinemaException {
+    	CinemaFunction cinemaFunction = null;
+    	try {
+    		Cinema cine = cinemas.get(cinema);
+
+    		for (CinemaFunction funcion : cine.getFunctions()) {
+    			if (funcion.getDate().equals(date) && funcion.getMovie().getName().equals(name)) {
+    				cinemaFunction = funcion;
+    			}
+    		}
+    	}catch (Exception e) {
+			throw new CinemaException("Cinema not found");
+		}
+		
+		
+
+		return cinemaFunction;
         
     }
 
@@ -154,8 +157,6 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
 		List<Movie> movies= this.filter.filter(c, fecha, filter);
 		return movies;
 	}
-	
-	
 	
 	public void setFilter(Filter filter) {
 		this.filter = filter;
