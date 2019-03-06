@@ -1,0 +1,17 @@
+1. Qué condiciones de carrera se podrían presentar?
+	- Cuado se llamen dos veces al mismo tiempo modificando y creando la misma funcion
+	  no se podra saber cual se ejecutara primero
+	- Cuando se este consultado alguna funcion(GET) mientras que al mismo tiempo se este realizando 	  la insercion de la misma funcion que se esta consultando(POST) dando la posibilidad de   		  lectura sucia
+	- La posibilidad de que dos o mas usuarios intenten reservar el mismo asiento
+	
+
+2. Cuales son las respectivas regiones críticas?
+
+	-Coleccion de Funciones que cada uno de los cinemas posee
+	-Matriz de asientos de cada una de las funciones
+	-El hasMap de los cinemas
+
+3. Solucion aplicada
+	Como no es posible hacer el uso de sincronizaciones la estrategia para lograr el thread safety 
+	es implementar en las variables de las regiones criticas variables atomicas asi de esta manera 
+	se lograra el uso correcto de estas a pesar de las condiciones de carrera
