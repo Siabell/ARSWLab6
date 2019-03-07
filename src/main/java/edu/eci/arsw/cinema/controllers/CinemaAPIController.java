@@ -70,7 +70,7 @@ public class CinemaAPIController {
 	        //obtener datos que se enviarán a través del API
 	    	
 	        Object data = cinemaService.getFunctionsbyCinemaAndDate(name, date);
-	        if(cinemaService.getFunctionsbyCinemaAndDate(name, date).isEmpty())return new ResponseEntity<>("No existen funciones para esa fecha",HttpStatus.ACCEPTED);
+	        if(cinemaService.getFunctionsbyCinemaAndDate(name, date).isEmpty())return new ResponseEntity<>("No existen funciones para esa fecha",HttpStatus.NOT_FOUND);
 	        else return new ResponseEntity<>(data,HttpStatus.ACCEPTED);
 	        
 	    } catch (Exception ex) {
@@ -82,7 +82,6 @@ public class CinemaAPIController {
 	@RequestMapping("/{cinema}/{date}/{moviename}")
     public HttpEntity getAddressCinemaDateAndName(@PathVariable String cinema, @PathVariable String date,@PathVariable String moviename) {
 		try {
-	        //obtener datos que se enviarán a través del API
 	    	
 	        Object data = cinemaService.getFunctionsbyCinemaDateAndName(cinema, date, moviename);
 	        

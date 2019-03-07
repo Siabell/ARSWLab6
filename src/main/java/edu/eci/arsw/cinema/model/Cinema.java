@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class Cinema {
     private String name;
-    private List<CinemaFunction> functions; 
+    private volatile List<CinemaFunction> functions; 
     
     
     public Cinema(){}

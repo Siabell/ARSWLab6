@@ -17,8 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,7 +33,7 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
     @Autowired
 	private Filter filter = null;
 	
-    private final Map<String,Cinema> cinemas=new HashMap<>();
+    private final ConcurrentHashMap<String,Cinema> cinemas=new ConcurrentHashMap<>();
     
     
 
@@ -111,7 +110,7 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
     		Cinema cine = cinemas.get(cinema);
 
     		for (CinemaFunction funcion : cine.getFunctions()) {
-    			if (funcion.getDate().equals(date) && funcion.getMovie().getName().equals(name)) {
+    			if (funcion.getMovie().getName().equals(name)) {
     				cinemaFunction = funcion;
     			}
     		}
